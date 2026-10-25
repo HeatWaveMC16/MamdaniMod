@@ -4,8 +4,8 @@ A Minecraft Forge mod featuring Mayor Mamdani and Big Yahu.
 
 ## Mobs
 
-- **Mayor Mamdani** is a neutral mob. He ignores players unless attacked, then retaliates for a limited time.
-- **Big Yahu** is a hostile, player-sized mob that attacks nearby players.
+- **Mayor Mamdani** is a neutral mob. He ignores players unless attacked, then retaliates for a limited time. He is faster and stronger than Big Yahu and will attack him.
+- **Big Yahu** is a hostile, player-sized mob that attacks nearby players and fights back against Mamdani. At half health, he retreats from Mamdani.
 
 Both mobs have spawn eggs in the MamdaniMod creative tab and the vanilla Spawn Eggs tab. Big Yahu's spawn egg uses an Israeli flag design.
 

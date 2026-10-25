@@ -39,9 +39,9 @@ public class MamdaniEntity extends PathfinderMob implements NeutralMob {
     public static AttributeSupplier.Builder createAttributes() {
         return PathfinderMob.createMobAttributes()
             .add(Attributes.MAX_HEALTH, 20.0)
-            .add(Attributes.MOVEMENT_SPEED, 0.25)
+            .add(Attributes.MOVEMENT_SPEED, 0.35)
             .add(Attributes.FOLLOW_RANGE, 16.0)
-            .add(Attributes.ATTACK_DAMAGE, 3.0);
+            .add(Attributes.ATTACK_DAMAGE, 8.0);
     }
 
     @Override
@@ -52,8 +52,9 @@ public class MamdaniEntity extends PathfinderMob implements NeutralMob {
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
-        this.targetSelector.addGoal(3, new ResetUniversalAngerTargetGoal<>(this, false));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, BigYahuEntity.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
+        this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, false));
     }
 
     @Override
