@@ -1,6 +1,8 @@
 {
   "entity.mamdanimod.mamdani": "Mayor Mamdani",
+  "entity.mamdanimod.big_yahu": "Big Yahu",
   "item.mamdanimod.mamdani_spawn_egg": "Mayor Mamdani Spawn egg",
+  "item.mamdanimod.big_yahu_spawn_egg": "Big Yahu Spawn Egg",
   "item.mamdanimod.mamdanimod_tab_icon": "MamdaniMod Tab Icon",
   "itemGroup.mamdanimod.mamdanimod_tab": "MamdaniMod"
 }

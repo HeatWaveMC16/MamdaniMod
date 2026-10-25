@@ -1,6 +1,8 @@
 package com.mamdanimod;
 
 import com.mojang.logging.LogUtils;
+import com.mamdanimod.entity.BigYahuEntity;
+import com.mamdanimod.entity.BigYahuRenderer;
 import com.mamdanimod.entity.MamdaniEntity;
 import com.mamdanimod.entity.MamdaniRenderer;
 import net.minecraft.client.Minecraft;
@@ -46,10 +48,21 @@ public final class MamdaniMod {
             .sized(0.6F, 1.8F)
             .build(ENTITY_TYPES.key("mamdani"))
     );
+    public static final RegistryObject<EntityType<BigYahuEntity>> BIG_YAHU = ENTITY_TYPES.register("big_yahu",
+        () -> EntityType.Builder.of(BigYahuEntity::new, MobCategory.MONSTER)
+            .sized(0.6F, 1.8F)
+            .build(ENTITY_TYPES.key("big_yahu"))
+    );
     public static final RegistryObject<Item> MAMDANI_SPAWN_EGG = ITEMS.register("mamdani_spawn_egg",
         () -> new SpawnEggItem(new Item.Properties()
             .setId(ITEMS.key("mamdani_spawn_egg"))
             .spawnEgg(MAMDANI.get())
+        )
+    );
+    public static final RegistryObject<Item> BIG_YAHU_SPAWN_EGG = ITEMS.register("big_yahu_spawn_egg",
+        () -> new SpawnEggItem(new Item.Properties()
+            .setId(ITEMS.key("big_yahu_spawn_egg"))
+            .spawnEgg(BIG_YAHU.get())
         )
     );
     public static final RegistryObject<Item> MAMDANIMOD_TAB_ICON = ITEMS.register("mamdanimod_tab_icon",
@@ -63,6 +76,7 @@ public final class MamdaniMod {
             .icon(() -> MAMDANIMOD_TAB_ICON.get().getDefaultInstance())
             .displayItems((_, output) -> {
                 output.accept(MAMDANI_SPAWN_EGG.get());
+                output.accept(BIG_YAHU_SPAWN_EGG.get());
             }).build());
 
     public MamdaniMod(FMLJavaModLoadingContext context) {
@@ -80,7 +94,10 @@ public final class MamdaniMod {
         // Register the item to a creative tab
         BuildCreativeModeTabContentsEvent.BUS.addListener(MamdaniMod::addCreative);
         EntityAttributeCreationEvent.BUS.addListener(event ->
-            event.put(MAMDANI.get(), MamdaniEntity.createAttributes().build())
+        {
+            event.put(MAMDANI.get(), MamdaniEntity.createAttributes().build());
+            event.put(BIG_YAHU.get(), BigYahuEntity.createAttributes().build());
+        }
         );
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
@@ -102,6 +119,8 @@ public final class MamdaniMod {
     private static void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS)
             event.accept(MAMDANI_SPAWN_EGG);
+        if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS)
+            event.accept(BIG_YAHU_SPAWN_EGG);
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
@@ -109,7 +128,10 @@ public final class MamdaniMod {
     public static class ClientModEvents {
         static {
             EntityRenderersEvent.RegisterRenderers.BUS.addListener(event ->
-                event.registerEntityRenderer(MAMDANI.get(), MamdaniRenderer::new)
+            {
+                event.registerEntityRenderer(MAMDANI.get(), MamdaniRenderer::new);
+                event.registerEntityRenderer(BIG_YAHU.get(), BigYahuRenderer::new);
+            }
             );
         }
 
